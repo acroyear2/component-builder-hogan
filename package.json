@@ -1,0 +1,23 @@
+{
+  "name": "component-builder-hogan",
+  "version": "0.1.0",
+  "description": "hogan.js plugin for component-builder",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "tetsuo/component-builder-hogan",
+  "homepage": "https://github.com/tetsuo/component-builder-hogan",
+  "keywords": [
+    "hogan",
+    "template",
+    "plugin",
+    "component",
+    "component-builder",
+    "mustache"
+  ],
+  "author": {
+    "name": "Onur Gunduz",
+    "email": "ehlo@onurgunduz.com"
+  },
+  "license": "MIT"
+}
