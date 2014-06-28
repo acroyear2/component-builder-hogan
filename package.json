@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "hogan.js plugin for component-builder",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test"
   },
   "repository": "tetsuo/component-builder-hogan",
   "homepage": "https://github.com/tetsuo/component-builder-hogan",
@@ -19,5 +19,14 @@
     "name": "Onur Gunduz",
     "email": "ehlo@onurgunduz.com"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^1.20.1",
+    "should": "^4.0.4"
+  },
+  "dependencies": {
+    "component-builder": "^1.1.7",
+    "component-resolver": "^1.1.6",
+    "hogan.js": "^3.0.2"
+  }
 }
