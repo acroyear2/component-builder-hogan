@@ -1,6 +1,6 @@
 {
   "name": "component-builder-hogan",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "hogan.js plugin for component-builder",
   "scripts": {
     "test": "make test"
