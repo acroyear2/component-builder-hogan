@@ -3,20 +3,26 @@ var Hogan = require('hogan.js');
 
 var extname = /\.(hogan|hg|mustache|ms)$/;
 
-var defaults = {
-  asString: true
-};
-
 module.exports = function (options) {
   options = options || {};
-  options = extend(options, defaults);
+  options = extend(options, {asString: true});
 
   return function hogan (file, done) {
     if (!extname.test(file.path)) return done();
 
     file.read(function (err, text) {
+      var codeObj = Hogan.compile(text, options);
+
+      var string;
+      if (options.disableLambda) {
+        string = 'module.exports = new (require(\'hogan.js\')).Template(' + codeObj + ');';
+      } else {
+        string = 'var Hogan = require(\'hogan.js\'); module.exports = new Hogan.Template(' + codeObj + ', \"' + text +'\", Hogan);';
+      }
+
       file.extension = 'js';
-      file.string = wrap(Hogan.compile(text, options), text);
+      file.string = string;
+      
       done();
     });
   };
@@ -33,8 +39,3 @@ function extend (obj) {
 
   return obj;
 }
-
-function wrap (codeObj, text) {
-  return 'var Hogan = require(\'hogan.js\'); module.exports = new Hogan.Template(' + codeObj + ', \"' + text +'\", Hogan);';
-}
-

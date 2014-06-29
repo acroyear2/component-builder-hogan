@@ -62,7 +62,7 @@ describe('hogan', function () {
   it('should match expected recursive output', function (done) {
     resolve(fixture('recursion'), {install: true}, function (err, tree) {
       if (err) throw err;     
-      buildScripts(tree, {}, function (string) {
+      buildScripts(tree, {disableLambda: true}, function (string) {
         var fn = vm.runInNewContext(req(string, tree));
         fn({}).trim().should.eql('override override override don\'t recurse');
         done();
@@ -73,7 +73,7 @@ describe('hogan', function () {
   it('should execute lambdas in multi-level inheritance', function (done) {
     resolve(fixture('lambdas'), {install: true}, function (err, tree) {
       if (err) throw err;
-      buildScripts(tree, {disableLambda: false}, function (string) {
+      buildScripts(tree, {}, function (string) {
         var fn = vm.runInNewContext(req(string, tree));
         fn({
           lambda: function () {
