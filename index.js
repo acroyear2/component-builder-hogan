@@ -22,7 +22,6 @@ module.exports = function (options) {
   };
 };
 
-
 function extend (obj) {
   Array.prototype.slice.call(arguments, 1).forEach(function (source) {
     if (!source) return;
@@ -36,13 +35,6 @@ function extend (obj) {
 }
 
 function wrap (template) {
-  return (
-    'var t = new (require(\'hogan.js/lib/template.js\')).Template(' + template + ');' +
-    'module.exports = {' +
-    '  render: function () { return t.render.apply(t, arguments); },' +
-    '  r: function () { return t.r.apply(t, arguments); },' +
-    '  ri: function () { return t.ri.apply(t, arguments); },' +
-    '  ib: function () { return t.ib.apply(t, arguments); }' +
-    '};'
-  );
+  return 'module.exports = new (require(\'hogan.js\')).Template(' + template + ');';
 }
+

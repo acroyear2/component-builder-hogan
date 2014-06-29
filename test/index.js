@@ -25,7 +25,7 @@ function buildScripts (tree, options, cb) {
 
 describe('hogan', function () {
 
-  it('should change delimiters', function (done) {
+  it('should accept options', function (done) {
     resolve(fixture('options'), {install: true}, function (err, tree) {
       if (err) throw err;
       buildScripts(tree, {delimiters: '<% %>'}, function (string) {
@@ -43,6 +43,28 @@ describe('hogan', function () {
         var fn = vm.runInNewContext(req(string, tree));
         fn({items: [{message: 'hola1'}, {message: 'hola2'}]}).trim()
           .should.eql('<ul><li>hola1</li><li>hola2</li></ul>');
+        done();
+      });
+    });
+  });
+
+  it('should override inherited templates', function (done) {
+    resolve(fixture('override'), {install: true}, function (err, tree) {
+      if (err) throw err;     
+      buildScripts(tree, {}, function (string) {
+        var fn = vm.runInNewContext(req(string, tree));
+        fn({}).trim().should.eql('default one, override two');
+        done();
+      });
+    });
+  });
+
+  it('should match expected recursive output', function (done) {
+    resolve(fixture('recursion'), {install: true}, function (err, tree) {
+      if (err) throw err;     
+      buildScripts(tree, {}, function (string) {
+        var fn = vm.runInNewContext(req(string, tree));
+        fn({}).trim().should.eql('override override override don\'t recurse');
         done();
       });
     });
