@@ -1,4 +1,4 @@
-# component-builder-hogan
+# component-builder-hogan [![Build Status](https://travis-ci.org/tetsuo/component-builder-hogan.svg?branch=master)](https://travis-ci.org/tetsuo/component-builder-hogan)
 
 [hogan.js](http://twitter.github.io/hogan.js/) plugin for [component-builder](https://www.npmjs.org/package/component-builder).
 
