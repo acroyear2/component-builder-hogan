@@ -1,0 +1,9 @@
+{
+  "name": "example",
+  "devDependencies": {
+    "component-builder": "^1.1.7",
+    "component-builder-hogan": "^0.1.2",
+    "component-resolver": "^1.1.6",
+    "fs-extra": "^0.10.0"
+  }
+}

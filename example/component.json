@@ -1,0 +1,16 @@
+{
+	"name": "example", 
+  "dependencies": {
+    "twitter/hogan.js": "*",
+    "component/domify": "*"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "templates": [
+    "base.mustache",
+    "header.mustache",
+    "index.mustache",
+    "item.mustache"
+  ]
+}
