@@ -1,3 +1,4 @@
+
 var resolve = require('component-resolver');
 var build = require('component-builder');
 var path = require('path');
@@ -12,22 +13,39 @@ function req(string, tree) {
     + 'require("' + build.scripts.canonical(tree).canonical + '")';
 }
 
-describe('hogan', function () {
-  it('simple', function (done) {
-
-    resolve(fixture('simple'), {install: true}, function (err, tree) {
+function buildScripts (tree, options, cb) {
+  build.scripts(tree)
+    .use('scripts', build.plugins.js())
+    .use('templates', require('..')(options))
+    .end(function (err, string) {
       if (err) throw err;
-      
-      build.scripts(tree)
-        .use('scripts', build.plugins.js())
-        .use('templates', require('..')())
-        .end(function (err, string) {
-          if (err) throw err;
-          var fn = vm.runInNewContext(req(string, tree));
-          fn({message: 'hola'}).trim().should.eql('<div>hola</div>');
-          done();
-        });
+      cb(string);
     });
+}
 
+describe('hogan', function () {
+
+  it('should change delimiters', function (done) {
+    resolve(fixture('options'), {install: true}, function (err, tree) {
+      if (err) throw err;
+      buildScripts(tree, {delimiters: '<% %>'}, function (string) {
+        var fn = vm.runInNewContext(req(string, tree));
+        fn({message: 'hola'}).trim().should.eql('<div>hola</div>');
+        done();
+      });
+    });
   });
+
+  it('should render partials', function (done) {
+    resolve(fixture('partials'), {install: true}, function (err, tree) {
+      if (err) throw err;     
+      buildScripts(tree, {}, function (string) {
+        var fn = vm.runInNewContext(req(string, tree));
+        fn({items: [{message: 'hola1'}, {message: 'hola2'}]}).trim()
+          .should.eql('<ul><li>hola1</li><li>hola2</li></ul>');
+        done();
+      });
+    });
+  });
+
 });

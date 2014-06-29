@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "twitter/hogan.js": "*"
+  },
+  "scripts": [
+    "index.js"
+  ],
+	"templates": [
+    "ul.mustache",
+    "li.mustache"
+	]
+}
