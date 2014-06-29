@@ -14,9 +14,9 @@ module.exports = function (options) {
   return function hogan (file, done) {
     if (!extname.test(file.path)) return done();
 
-    file.read(function (err, string) {
+    file.read(function (err, text) {
       file.extension = 'js';
-      file.string = wrap(Hogan.compile(string, options));
+      file.string = wrap(Hogan.compile(text, options), text);
       done();
     });
   };
@@ -34,7 +34,7 @@ function extend (obj) {
   return obj;
 }
 
-function wrap (template) {
-  return 'module.exports = new (require(\'hogan.js\')).Template(' + template + ');';
+function wrap (codeObj, text) {
+  return 'var Hogan = require(\'hogan.js\'); module.exports = new Hogan.Template(' + codeObj + ', \"' + text +'\", Hogan);';
 }
 

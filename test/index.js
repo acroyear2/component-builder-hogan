@@ -70,4 +70,21 @@ describe('hogan', function () {
     });
   });
 
+  it('should execute lambdas in multi-level inheritance', function (done) {
+    resolve(fixture('lambdas'), {install: true}, function (err, tree) {
+      if (err) throw err;
+      buildScripts(tree, {disableLambda: false}, function (string) {
+        var fn = vm.runInNewContext(req(string, tree));
+        fn({
+          lambda: function () {
+            return function (text) {
+              return "changed " + text;
+            };
+          }
+        }).trim().should.eql('changed c - changed p - changed o - changed g');
+        done();
+      });
+    });
+  });
+
 });
