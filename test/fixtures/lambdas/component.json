@@ -8,7 +8,6 @@
 	"templates": [
 		"child.mustache",
     "parent.mustache",
-    "older.mustache",
-    "grandparent.mustache"
+    "older.mustache"
 	]
 }
