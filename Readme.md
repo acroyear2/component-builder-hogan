@@ -2,6 +2,57 @@
 
 [hogan.js](http://twitter.github.io/hogan.js/) plugin for [component-builder](https://www.npmjs.org/package/component-builder).
 
+## Installation
+
+```sh
+npm install component-builder-hogan
+```
+
+## Usage
+
+  Add your `.mustache`, `.hogan`, `.ms` or `.hg` files to the `templates` array in your `component.json`:
+
+  ```js
+  {
+    "templates": [
+      "one.mustache",
+      "two.mustache"
+    ]
+  }
+  ```
+
+  Use the plugin during your build process:
+
+  ```js
+  var write = require('fs').writeFileSync;
+  var resolve = require('component-resolver');
+  var build = require('component-builder');
+
+  function req(string, tree) {
+    return build.scripts.require + string;
+  }
+
+  resolve(__dirname, {
+    install: true
+  }, function(err, tree) {
+    build.scripts(tree)
+      .use('scripts', build.plugins.js())
+      .use('templates', hogan())
+      .end(function(err, string) {
+        write(file, req(string, tree));
+      });
+  });
+  ```
+
+  And then require the files in your Javascript:
+
+  ```js
+  var template = require('one.mustache');
+  template.render(ctx, partials);
+  ```
+
+  __Note:__ You need to add hogan and the runtime yourself. For a full working example take a look at `./example`.
+
 ## License
 
 The MIT License (MIT)
